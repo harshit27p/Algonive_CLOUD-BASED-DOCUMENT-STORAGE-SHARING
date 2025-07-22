@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow-sm p-4">
+        <h2 class="mb-4 text-primary">Welcome, {{ user }}</h2>
+
+        <!-- Upload form -->
+        <form method="POST" action="/upload" enctype="multipart/form-data" class="mb-4">
+            <div class="input-group">
+                <input type="file" name="file" class="form-control" required>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+        </form>
+
+        <!-- Your Documents -->
+        <h4>Your Documents:</h4>
+        <ul class="list-group mb-4">
+            {% for file in files %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <strong>{{ file.filename }}</strong><br>
+                        <small>{{ file.filesize }} bytes • Uploaded: {{ file.uploaded_at }}</small>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="viewSignedLink('{{ file.filename }}')">View</button>
+                        <button class="btn btn-sm btn-outline-info" onclick="copySignedLink('{{ file.filename }}')">Copy Link</button>
+                        <a href="/delete/{{ file.id }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                    </div>
+                </div>
+                <form method="POST" action="/rename" class="mt-2 d-flex">
+                    <input type="hidden" name="file_id" value="{{ file.id }}">
+                    <input type="text" name="new_name" placeholder="New filename" class="form-control me-2" required>
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Rename</button>
+                </form>
+                <form method="POST" action="/share" class="mt-2 d-flex">
+                    <input type="hidden" name="filename" value="{{ file.filename }}">
+                    <input type="text" name="recipient" placeholder="Share with user" class="form-control me-2" required>
+                    <button type="submit" class="btn btn-sm btn-outline-success">Share</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Shared With Me -->
+        <h4>Shared With You:</h4>
+        <ul class="list-group">
+            {% for file in shared_files %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ file.filename }}
+                <button class="btn btn-sm btn-outline-secondary" onclick="viewSharedLink('{{ file.s3_key }}')">View</button>
+            </li>
+            {% else %}
+            <li class="list-group-item">No files shared with you</li>
+            {% endfor %}
+        </ul>
+
+        <a href="/logout" class="btn btn-danger mt-4">Logout</a>
+    </div>
+</div>
+
+<script>
+function copySignedLink(filename) {
+    fetch('/generate-link', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({filename})
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.url) {
+            navigator.clipboard.writeText(data.url);
+            alert("Secure link copied:\n" + data.url);
+        } else {
+            alert("Error generating link.");
+        }
+    });
+}
+
+function viewSignedLink(filename) {
+    fetch('/generate-link', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({filename})
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.url) {
+            window.open(data.url, '_blank');
+        } else {
+            alert("Error generating view link.");
+        }
+    });
+}
+
+function viewSharedLink(key) {
+    const [prefix, ...parts] = key.split('/');
+    const filename = parts.join('/');
+    fetch('/generate-link', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: new URLSearchParams({filename, prefix})
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.url) {
+            window.open(data.url, '_blank');
+        } else {
+            alert("Error generating view link.");
+        }
+    });
+}
+</script>
+</body>
+</html>
