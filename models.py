@@ -1,22 +1,27 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
-# Initialize SQLAlchemy
 db = SQLAlchemy()
 
-# User Model
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=True)  # Changed to nullable=True to support Cognito users
+    password = db.Column(db.String(128), nullable=True)
+    created_at = db.Column(db.DateTime)
 
-    files = db.relationship('File', backref='owner', lazy=True)
-    shared = db.relationship('SharedFile', backref='recipient', lazy=True)
+    uploads = db.relationship('File', backref='owner', lazy=True)
 
-# File Model
+    # Files shared with this user
+    shared_with_me = db.relationship(
+        'SharedFile',
+        backref='recipient',
+        lazy=True,
+        foreign_keys='SharedFile.shared_with_id'
+    )
+
 class File(db.Model):
     __tablename__ = 'file'
 
@@ -27,9 +32,14 @@ class File(db.Model):
     uploaded_at = db.Column(db.DateTime)
 
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    shared_with = db.relationship('SharedFile', backref='file', lazy=True, cascade='all, delete-orphan')
 
-# SharedFile Model
+    shared_with = db.relationship(
+        'SharedFile',
+        backref='file',
+        lazy=True,
+        cascade='all, delete-orphan'
+    )
+
 class SharedFile(db.Model):
     __tablename__ = 'shared_file'
 

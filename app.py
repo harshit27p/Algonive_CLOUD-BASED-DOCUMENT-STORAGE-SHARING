@@ -15,6 +15,7 @@ from functools import wraps
 from urllib.parse import urlencode
 from sqlalchemy import or_
 from datetime import timedelta
+from flask_migrate import Migrate
 
 # Load environment variables
 load_dotenv()
@@ -24,6 +25,8 @@ app.config.from_object(Config)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "super-secret")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 db.init_app(app)
+
+migrate = Migrate(app, db)
 
 # AWS S3
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
@@ -263,7 +266,16 @@ def revoke(file_id, user_id):
 @login_required
 def profile():
     user = db.session.get(User, session['user_id'])
-    return render_template('profile.html', user=user)
+    shared_with_me = SharedFile.query.filter_by(shared_with_id=user.id).all()
+    shared_by_user = SharedFile.query.join(File).filter(File.owner_id == user.id).all()
+
+    return render_template(
+        'profile.html',
+        user=user,
+        shared_with_me=shared_with_me,
+        shared_by_user=shared_by_user
+    )
+
 
 if __name__ == '__main__':
     with app.app_context():
