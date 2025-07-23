@@ -1,85 +1,102 @@
-/* Base Styles */
+/* Body Styling */
 body {
-    background-color: #f8f9fa;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: #343a40;
-    margin: 0;
-    padding: 0;
+  background-color: #f8f9fa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #343a40;
+  margin: 0;
+  padding: 0;
 }
 
-/* Card Styling */
+/* Card Appearance */
 .card {
-    border-radius: 1rem;
-    border: none;
-    background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Headings */
+/* Heading Styles */
 h2, h4 {
-    font-weight: 600;
+  font-weight: 600;
+  color: #0d6efd;
 }
 
-/* Button Enhancements */
+/* Buttons */
 .btn {
-    transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .btn-outline-secondary:hover {
-    background-color: #e9ecef;
-    border-color: #ced4da;
+  background-color: #e9ecef;
+  border-color: #ced4da;
 }
 
 .btn-outline-info:hover {
-    background-color: #cfe2ff;
-    border-color: #9ec5fe;
+  background-color: #cfe2ff;
+  border-color: #9ec5fe;
 }
 
 .btn-outline-danger:hover {
-    background-color: #f8d7da;
-    border-color: #f5c2c7;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
 }
 
 .btn-outline-success:hover {
-    background-color: #d1e7dd;
-    border-color: #badbcc;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
 }
 
 .btn-outline-primary:hover {
-    background-color: #cfe2ff;
-    border-color: #9ec5fe;
+  background-color: #cfe2ff;
+  border-color: #9ec5fe;
 }
 
 /* Forms */
 input.form-control {
-    border-radius: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 form.d-flex input {
-    min-width: 150px;
+  min-width: 150px;
 }
 
-/* Alerts & Flash */
+/* Flash Messages */
 .alert {
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.95rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
 }
 
-/* Responsive List Items */
+/* List Group Items */
 .list-group-item {
-    border: none;
-    border-bottom: 1px solid #dee2e6;
-    padding: 1rem 0.75rem;
-    transition: background-color 0.2s ease;
+  border: none;
+  border-bottom: 1px solid #dee2e6;
+  padding: 1rem 0.75rem;
+  transition: background-color 0.2s ease;
 }
 
 .list-group-item:hover {
-    background-color: #f1f3f5;
+  background-color: #f1f3f5;
 }
 
-/* Footer or Logout */
+/* Toast */
+.toast {
+  font-size: 0.9rem;
+}
+
+/* Logout Button */
 a.btn-danger {
-    margin-top: 2rem;
-    font-weight: 500;
+  margin-top: 2rem;
+  font-weight: 500;
+}
+
+/* Input Group Customization */
+.input-group input[type="file"] {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.input-group .btn {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
