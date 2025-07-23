@@ -54,12 +54,12 @@ A secure and scalable cloud-based document management system built with Flask, A
 ---
 ## 🧠 AWS Services Used
 Service	Purpose
-🗄️ S3	Store user-uploaded documents
-🧠 Cognito	User authentication & OAuth handling
-📊 RDS	Store metadata, user & file info
-💻 EC2	Host Flask application
-📜 CloudWatch	Logging file events & application logs
-🔐 IAM	Secure access to AWS resources
+- 🗄️ S3	Store user-uploaded documents
+- 🧠 Cognito	User authentication & OAuth handling
+- 📊 RDS	Store metadata, user & file info
+- 💻 EC2	Host Flask application
+- 📜 CloudWatch	Logging file events & application logs
+- 🔐 IAM	Secure access to AWS resources
 
 ---
 ## 📁 Project Structure
