@@ -52,7 +52,7 @@ A secure and scalable cloud-based document management system built with Flask, A
 ![Signin](assets/Screenshot_signin.png)
 
 ---
-### 🧠 AWS Services Used
+## 🧠 AWS Services Used
 Service	Purpose
 🗄️ S3	Store user-uploaded documents
 🧠 Cognito	User authentication & OAuth handling
@@ -62,7 +62,7 @@ Service	Purpose
 🔐 IAM	Secure access to AWS resources
 
 ---
-### 📁 Project Structure
+## 📁 Project Structure
 ```bash
 cloud-docs-app/
 │
@@ -85,52 +85,55 @@ cloud-docs-app/
 ```
 
 ---
-### 🔧 Setup Instructions (Detailed)
+## 🔧 Setup Instructions (Detailed)
 
 Follow these steps to set up and run the project on your local machine.
-## 1️⃣ Clone the Repository
+### 1️⃣ Clone the Repository
 
 First, you need to get the project code from GitHub to your local machine.
 
 Open your terminal or command prompt and run:
-
+```bash
 git clone git@github.com:harshit27p/Algonive_CLOUD-BASED-DOCUMENT-STORAGE-SHARING.git
 cd Algonive_CLOUD-BASED-DOCUMENT-STORAGE-SHARING
-
+```
 ✅ This downloads the entire project folder into your system.
 
-## 2️⃣ Set Up Python Virtual Environment
+### 2️⃣ Set Up Python Virtual Environment
 
 A virtual environment keeps your project’s dependencies isolated.
 
 Run the following in your terminal:
 
-# Create a virtual environment named "env"
+### Create a virtual environment named "env"
+```bash
 python -m venv env
-
-# Activate the virtual environment:
-# On Windows:
+```
+### Activate the virtual environment:
+### On Windows:
+```bash
 env\Scripts\activate
-
-# On MacOS/Linux:
+```
+### On MacOS/Linux:
+```bash
 source env/bin/activate
-
+```
 When activated, your terminal should show (env) at the beginning of the line.
 
-## 3️⃣ Install Python Dependencies
+### 3️⃣ Install Python Dependencies
 
 Inside the virtual environment, install all required libraries using pip:
-
+```bash
 pip install -r requirements.txt
-
+```
 📦 This command reads the requirements.txt file and installs Flask, boto3, SQLAlchemy, psycopg2, Flask-Cognito, and other dependencies.
 
-## 4️⃣ Create Environment Variables (.env File)
+### 4️⃣ Create Environment Variables (.env File)
 
 Create a file named .env in the project root directory. This file stores sensitive information securely and is loaded into your Flask app using libraries like python-dotenv.
 
 Here’s an example of what the .env file should contain:
-
+```bash
 AWS_ACCESS_KEY_ID=YOUR_AWS_ACCESS_KEY
 AWS_SECRET_ACCESS_KEY=YOUR_AWS_SECRET_KEY
 COGNITO_CLIENT_ID=YOUR_COGNITO_CLIENT_ID
@@ -139,7 +142,7 @@ COGNITO_DOMAIN=your-cognito-domain.auth.REGION.amazoncognito.com
 COGNITO_REDIRECT_URI=http://localhost:5000/callback
 S3_BUCKET_NAME=your-s3-bucket-name
 DATABASE_URL=postgresql://username:password@host:port/databasename
-
+```
 🔐 Replace the placeholders above with actual credentials:
 
     You get Cognito credentials from the AWS Cognito User Pool App Client.
@@ -148,24 +151,24 @@ DATABASE_URL=postgresql://username:password@host:port/databasename
 
     DATABASE_URL is the PostgreSQL URI (from AWS RDS or local setup).
 
-## 5️⃣ Run the Flask App
+### 5️⃣ Run the Flask App
 
 Once everything is set up, start your app:
-
+```bash
 python app.py
-
+```
 You should see output like:
 
  * Running on http://127.0.0.1:5000
 
 🌐 Now open your browser and go to:
-
+```bash
 http://localhost:5000
-
+```
 You’ll be redirected to the Cognito login screen. After logging in, you’ll be taken to your dashboard.
 
 ---
-### ✅ Summary of What’s Happening
+## ✅ Summary of What’s Happening
 
     📂 Files you upload go to your S3 bucket.
 
