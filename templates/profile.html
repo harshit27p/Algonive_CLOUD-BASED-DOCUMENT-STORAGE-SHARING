@@ -1,0 +1,39 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>User Profile - Algonive CLOUD DOC</title> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> </head> <body class="bg-light"> <div class="container mt-5"> <div class="card shadow-sm p-4"> <h2 class="text-primary mb-4">User Profile</h2>
+  <!-- Basic Info -->
+  <div class="mb-3">
+    <label class="form-label fw-bold">Username:</label>
+    <div class="form-control">{{ user.username }}</div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-bold">Email:</label>
+    <div class="form-control">{{ user.email }}</div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-bold">Account Created:</label>
+    <div class="form-control">
+      {{ user.created_at.strftime('%Y-%m-%d %H:%M') if user.created_at else 'N/A' }}
+    </div>
+  </div>
+
+  <!-- Statistics -->
+  <h4 class="mt-4 text-secondary">File Statistics</h4>
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Total Files Uploaded
+      <span class="badge bg-primary rounded-pill">{{ user.uploads|length }}</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Files Shared With Others
+      <span class="badge bg-success rounded-pill">{{ user.shared_files|length }}</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      Files Shared With You
+      <span class="badge bg-info text-dark rounded-pill">{{ user.shared_with_me|length }}</span>
+    </li>
+  </ul>
+
+  <a href="/dashboard" class="btn btn-outline-primary mt-4">← Back to Dashboard</a>
+</div>
+</div> </body> </html>
