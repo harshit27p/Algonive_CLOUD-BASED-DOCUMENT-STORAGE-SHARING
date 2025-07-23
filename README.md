@@ -2,7 +2,7 @@
 
 A secure and scalable cloud-based document management system built with Flask, AWS services, and a modern UI for uploading, sharing, and managing documents.
 
-![Dashboard Screenshot](assets/Screenshot 2025-07-23 233124)
+![Dashboard Screenshot](assets/Screenshot_dashboard.png)
 ![Profile Screenshot](assets/Screenshot_profile.png)
 ![Sign Up](assets/Screenshot_signup.png)
 ![Sign In](assets/Screenshot_signin.png)
